@@ -21,9 +21,9 @@ function Register() {
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback`,
           data: {
-            username: username
-          }
-        }
+            username: username,
+          },
+        },
       })
       if (error) {
         throw error
@@ -36,22 +36,15 @@ function Register() {
 
   return (
     <Box maxWidth="sm" sx={{ marginX: 'auto', marginTop: 8, padding: 2 }}>
-      <Card
-        component="form"
-        onSubmit={handleRegister}
-      >
+      <Card component="form" onSubmit={handleRegister}>
         <Stack direction="column" gap={3}>
-          <Typography variant="h1">
-            Sign up
-          </Typography>
-          
-          {error && (
-            <Typography color="error">
-              {error}
-            </Typography>
-          )}
+          <Typography variant="h1">Sign up</Typography>
+
+          {error && <Typography color="error">{error}</Typography>}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="body2" fontWeight={700} color="text.secondary">Username</Typography>
+            <Typography variant="body2" fontWeight={700} color="text.secondary">
+              Username
+            </Typography>
             <TextField
               value={username}
               placeholder="Satoshi"
@@ -61,7 +54,9 @@ function Register() {
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="body2" fontWeight={700} color="text.secondary">Email</Typography>
+            <Typography variant="body2" fontWeight={700} color="text.secondary">
+              Email
+            </Typography>
             <TextField
               type="email"
               value={email}
@@ -71,7 +66,9 @@ function Register() {
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="body2" fontWeight={700} color="text.secondary">Password</Typography>
+            <Typography variant="body2" fontWeight={700} color="text.secondary">
+              Password
+            </Typography>
             <TextField
               type="password"
               value={password}
@@ -81,11 +78,7 @@ function Register() {
               inputProps={{ minLength: 6 }}
             />
           </Box>
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-          >
+          <Button type="submit" variant="contained" size="large">
             Sign up
           </Button>
           <Typography variant="body2" color="text.secondary">

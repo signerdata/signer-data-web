@@ -18,7 +18,7 @@ function Login() {
       setError(undefined)
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
-        password
+        password,
       })
       if (error) {
         throw error
@@ -32,21 +32,14 @@ function Login() {
 
   return (
     <Box maxWidth="sm" sx={{ marginX: 'auto', marginTop: 8, padding: 2 }}>
-      <Card
-        component="form"
-        onSubmit={handleLogin}
-      >
+      <Card component="form" onSubmit={handleLogin}>
         <Stack direction="column" gap={3}>
-          <Typography variant="h1">
-            Sign in
-          </Typography>
-          {message && (
-            <Typography color="success.main">
-              {message}
-            </Typography>
-          )}
+          <Typography variant="h1">Sign in</Typography>
+          {message && <Typography color="success.main">{message}</Typography>}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="body2" fontWeight={700} color="text.secondary">Email</Typography>
+            <Typography variant="body2" fontWeight={700} color="text.secondary">
+              Email
+            </Typography>
             <TextField
               type="email"
               value={email}
@@ -56,7 +49,9 @@ function Login() {
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Typography variant="body2" fontWeight={700} color="text.secondary">Password</Typography>
+            <Typography variant="body2" fontWeight={700} color="text.secondary">
+              Password
+            </Typography>
             <TextField
               type="password"
               value={password}
@@ -70,11 +65,7 @@ function Login() {
               {error}
             </Typography>
           )}
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-          >
+          <Button type="submit" variant="contained" size="large">
             Sign in
           </Button>
           <Typography variant="body2" color="text.secondary">

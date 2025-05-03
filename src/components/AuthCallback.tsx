@@ -9,7 +9,10 @@ function AuthCallback() {
   useEffect(() => {
     const handleAuthCallback = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession()
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.getSession()
         if (error) {
           throw error
         }
@@ -35,7 +38,7 @@ function AuthCallback() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        gap: 2
+        gap: 2,
       }}
     >
       <CircularProgress />
