@@ -31,10 +31,12 @@ function Login() {
   }
 
   return (
-    <Box maxWidth="sm" sx={{ marginX: 'auto', marginTop: 8, padding: 2 }}>
+    <Box maxWidth="sm" sx={{ marginX: 'auto', padding: 2 }}>
       <Card component="form" onSubmit={handleLogin}>
-        <Stack direction="column" gap={3}>
-          <Typography variant="h1">Sign in</Typography>
+        <Stack gap={3}>
+          <Typography variant="h1" align="center">
+            Sign in
+          </Typography>
           {message && <Typography color="success.main">{message}</Typography>}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <Typography variant="body2" fontWeight={700} color="text.secondary">
@@ -68,7 +70,7 @@ function Login() {
           <Button type="submit" variant="contained" size="large">
             Sign in
           </Button>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" align="center">
             Don't have an account?{' '}
             <Link
               variant="body2"

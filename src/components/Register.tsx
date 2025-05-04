@@ -35,10 +35,12 @@ function Register() {
   }
 
   return (
-    <Box maxWidth="sm" sx={{ marginX: 'auto', marginTop: 8, padding: 2 }}>
+    <Box maxWidth="sm" sx={{ marginX: 'auto', padding: 2 }}>
       <Card component="form" onSubmit={handleRegister}>
-        <Stack direction="column" gap={3}>
-          <Typography variant="h1">Sign up</Typography>
+        <Stack gap={3}>
+          <Typography variant="h1" align="center">
+            Sign up
+          </Typography>
 
           {error && <Typography color="error">{error}</Typography>}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -81,7 +83,7 @@ function Register() {
           <Button type="submit" variant="contained" size="large">
             Sign up
           </Button>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" align="center">
             Already have an account?{' '}
             <Link
               variant="body2"
