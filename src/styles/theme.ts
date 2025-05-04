@@ -2,13 +2,30 @@ import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
   components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'transparent',
+          borderBottom: '1px solid #E0E0E0',
+          padding: 0,
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          paddingLeft: 'var(--space-2) !important',
+          paddingRight: 'var(--space-2) !important',
+        },
+      },
+    },
     MuiCard: {
       styleOverrides: {
         root: {
           justifyContent: 'start',
           boxShadow: 'none',
           position: 'relative',
-          borderRadius: 'var(--space-3)',
+          borderRadius: 'var(--space-2)',
           padding: 'var(--space-4)',
         },
       },
@@ -75,6 +92,37 @@ const theme = createTheme({
           fontSize: '14px',
           borderRadius: 'var(--space-1) !important',
         }),
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          minHeight: 'unset',
+          display: 'flex',
+          '& .MuiTabs-flexContainer': {
+            gap: 'var(--space-2)',
+          },
+        },
+        indicator: {
+          display: 'none',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: '700',
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            height: '100%',
+            borderRadius: '8px',
+            color: 'primary.main',
+          },
+          '&:focus': {
+            borderRadius: '8px',
+          },
+        },
       },
     },
   },
