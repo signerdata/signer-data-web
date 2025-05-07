@@ -89,7 +89,8 @@ const theme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: () => ({
-          fontSize: '14px',
+          fontSize: '16px',
+          backgroundColor: '#ffffff',
           borderRadius: 'var(--space-1) !important',
         }),
       },
@@ -158,7 +159,7 @@ const theme = createTheme({
       dark: '#F57C00',
       contrastText: '#000000',
     },
-    divider: '#BDBDBD',
+    divider: '#E0E0E0',
     action: {
       active: '#D32F2F',
       hover: '#E57373',
