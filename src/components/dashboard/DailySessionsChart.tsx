@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
+import { useMemo } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { ProfileLogin } from './types'
 
@@ -61,28 +62,31 @@ function DailySessionsChart({
 }: {
   data: ProfileLogin[]
 }) {
-  // Group by date and count all sessions
-  const groupedData = data.reduce((acc, login) => {
-    const date = new Date(login.date).toISOString().split('T')[0];
-    if (!acc[date]) {
-      acc[date] = 0;
-    }
-    acc[date] += login.count;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const chartData = {
-    labels: Object.keys(groupedData).map(formatDate),
-    datasets: [
-      {
-        label: 'Daily sessions',
-        data: Object.keys(groupedData).map(date => groupedData[date]),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 1,
+  const chartData = useMemo(() => {
+    // Group by date and count all sessions
+    const groupedData = data.reduce((acc, login) => {
+      const date = new Date(login.date).toISOString().split('T')[0];
+      if (!acc[date]) {
+        acc[date] = 0;
       }
-    ],
-  }
+      acc[date] += login.count;
+      return acc;
+    }, {} as Record<string, number>);
+  
+    const chartData = {
+      labels: Object.keys(groupedData).map(formatDate),
+      datasets: [
+        {
+          label: 'Daily sessions',
+          data: Object.keys(groupedData).map(date => groupedData[date]),
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: 'rgb(255, 99, 132)',
+          borderWidth: 1,
+        }
+      ],
+    }
+    return chartData
+  }, [data])
   
   return (
     <Card>

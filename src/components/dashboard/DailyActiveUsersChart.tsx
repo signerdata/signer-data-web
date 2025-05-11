@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js'
+import { useMemo } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { ProfileLogin } from './types'
 
@@ -61,29 +62,32 @@ function DailyActiveUsersChart({
 }: {
   data: ProfileLogin[]
 }) {
-  // Group by date and count distinct addresses
-  const groupedData = data.reduce((acc, login) => {
-    const date = new Date(login.date).toISOString().split('T')[0];
-    if (!acc[date]) {
-      acc[date] = new Set();
-    }
-    acc[date].add(login.address);
-    return acc;
-  }, {} as Record<string, Set<string>>);
-
-  const chartData = {
-    labels: Object.keys(groupedData).map(formatDate),
-    datasets: [
-      {
-        label: 'Daily active users',
-        data: Object.keys(groupedData).map(date => groupedData[date].size),
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderColor: 'rgb(255, 99, 132)',
-        borderWidth: 1,
+  const chartData = useMemo(() => {
+    // Group by date and count distinct addresses
+    const groupedData = data.reduce((acc, login) => {
+      const date = new Date(login.date).toISOString().split('T')[0];
+      if (!acc[date]) {
+        acc[date] = new Set();
       }
-    ],
-  }
-  
+      acc[date].add(login.address);
+      return acc;
+    }, {} as Record<string, Set<string>>);
+
+    const chartData = {
+      labels: Object.keys(groupedData).map(formatDate),
+      datasets: [
+        {
+          label: 'Daily active users',
+          data: Object.keys(groupedData).map(date => groupedData[date].size),
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: 'rgb(255, 99, 132)',
+          borderWidth: 1,
+        }
+      ],
+    }
+    return chartData
+  }, [data])
+
   return (
     <Card>
       <Typography variant="h3" sx={{ mb: 3 }}>
