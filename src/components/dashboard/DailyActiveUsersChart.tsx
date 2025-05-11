@@ -5,19 +5,24 @@ import {
   Chart as ChartJS,
   Legend,
   LinearScale,
+  TimeScale,
   Title,
   Tooltip,
 } from 'chart.js'
+import 'chartjs-adapter-date-fns'
 import { useMemo } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { ProfileLogin } from './types'
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
-
-const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-};
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  TimeScale
+)
 
 const chartOptions = {
   responsive: true,
@@ -46,6 +51,13 @@ const chartOptions = {
       },
     },
     x: {
+      type: 'time' as const,
+      time: {
+        unit: 'day' as const,
+        displayFormats: {
+          day: 'MMM d'
+        }
+      },
       ticks: {
         maxRotation: 0,
         minRotation: 0,
@@ -74,7 +86,7 @@ function DailyActiveUsersChart({
     }, {} as Record<string, Set<string>>);
 
     const chartData = {
-      labels: Object.keys(groupedData).map(formatDate),
+      labels: Object.keys(groupedData).map(date => date),
       datasets: [
         {
           label: 'Daily active users',
@@ -85,6 +97,7 @@ function DailyActiveUsersChart({
         }
       ],
     }
+    console.log(chartData)
     return chartData
   }, [data])
 
