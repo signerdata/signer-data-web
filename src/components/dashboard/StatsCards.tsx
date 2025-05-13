@@ -22,8 +22,8 @@ function StatsCards({
     let averageUsers = 0;
     let maxUsers = 0;
     if (data.length > 0) {
-      totalUsers = data.length;
-      averageUsers = Number((totalUsers / 30).toFixed(2));
+      totalUsers = new Set(data.map(login => login.address)).size;
+      averageUsers = Number((data.length / 30).toFixed(2));
       maxUsers = Math.max(...Object.values(groupedData).map((set) => set.size));
     }
     return { totalUsers, averageUsers, maxUsers }
@@ -59,23 +59,23 @@ function StatsCards({
             Users
           </Typography>
           <Stack direction="row" gap={4} alignItems="center" justifyContent="space-around">
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{totalUsers.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Monthly users
               </Typography>
-              <Typography variant="h2">{totalUsers.toLocaleString()}</Typography>
             </Stack>
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{averageUsers.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Daily average
               </Typography>
-              <Typography variant="h2">{averageUsers.toLocaleString()}</Typography>
             </Stack>
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{maxUsers.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Monthly peak
               </Typography>
-              <Typography variant="h2">{maxUsers.toLocaleString()}</Typography>
             </Stack>
           </Stack>
         </Stack>
@@ -86,23 +86,23 @@ function StatsCards({
             Sessions
           </Typography>
           <Stack direction="row" gap={4} alignItems="center" justifyContent="space-around">
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{totalSessions.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Monthly sessions
               </Typography>
-              <Typography variant="h2">{totalSessions.toLocaleString()}</Typography>
             </Stack>
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{averageSessions.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Daily average
               </Typography>
-              <Typography variant="h2">{averageSessions.toLocaleString()}</Typography>
             </Stack>
-            <Stack alignItems="center">
+            <Stack alignItems="center" gap={1}>
+              <Typography variant="h2">{maxSessions.toLocaleString()}</Typography>
               <Typography variant="body2" color="text.secondary" textAlign="center">
                 Monthly peak
               </Typography>
-              <Typography variant="h2">{maxSessions.toLocaleString()}</Typography>
             </Stack>
           </Stack>
         </Stack>
