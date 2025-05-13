@@ -55,7 +55,7 @@ function Payments() {
   return (
     <Card>
       <Stack gap={6}>
-        <Stack flexDirection="row" gap={6}>
+        <Stack flexDirection="row" gap={10}>
           <Stack gap={1} width="300px" minWidth="300px">
             <Typography variant="h3">Subscription plans</Typography>
             <Typography variant="body2" color="text.secondary">
@@ -104,7 +104,7 @@ function Payments() {
                 <Typography variant="h5" fontWeight={700} color="primary.main">
                   Standard
                 </Typography>
-                <Typography variant="body1">{Number(1000).toLocaleString()} users/month</Typography>
+                <Typography variant="body1">{Number(10000).toLocaleString()} users/month</Typography>
                 <Stack direction="row" alignItems="flex-end" paddingY={2}>
                   <Typography variant="h2">199 USDC</Typography>
                   <Typography variant="body1" color="text.secondary">
@@ -123,7 +123,7 @@ function Payments() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack flexDirection="row" gap={6}>
+        <Stack flexDirection="row" gap={10}>
           <Stack gap={1} width="300px" minWidth="300px">
             <Typography variant="h3">Payments</Typography>
             <Typography variant="body2" color="text.secondary">
