@@ -17,14 +17,12 @@ function Dashboard({
   const navigate = useNavigate()
 
   const [data, setData] = useState<ProfileLogin[]>([])
-  const [isLoading, setIsLoading] = useState(true)
   const [activityFilter, setActivityFilter] = useState<string>('any')
   const [applications, setApplications] = useState<Application[]>([])
   const [currentApplication, setCurrentApplication] = useState<string>('')
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true)
       try {
         const response = await fetch(`http://localhost:3000/api/v1/dashboard/applications`, {
           method: 'GET',
@@ -43,8 +41,6 @@ function Dashboard({
       } catch (error) {
         console.error('Error fetching data:', error);
         setApplications([]);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchData();
@@ -52,7 +48,6 @@ function Dashboard({
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true)
       try {
         const application = applications.find(app => app.domain === currentApplication) || applications[0]
         if (!application) {
@@ -73,8 +68,6 @@ function Dashboard({
       } catch (error) {
         console.error('Error fetching data:', error);
         setData([]);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetchData();

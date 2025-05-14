@@ -16,11 +16,6 @@ import { ProfileLogin } from './types'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, TimeScale)
 
-const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-};
-
 const chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
