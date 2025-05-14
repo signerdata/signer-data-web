@@ -95,6 +95,13 @@ const theme = createTheme({
         }),
       },
     },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: 'inherit',
+        },
+      },
+    },
     MuiTabs: {
       styleOverrides: {
         root: {

@@ -2,6 +2,11 @@ import { Box, Button, Card, CircularProgress, Stack, TextField, Typography } fro
 import { useState } from 'react'
 import { isAddress } from 'viem'
 
+const applicationId = import.meta.env.APPLICATION_ID
+if (!applicationId) {
+  throw new Error('Missing application ID')
+}
+
 const LOADING_MESSAGES = [
   'Based data incoming...',
   'Calculating blockchain magic...',
@@ -15,7 +20,7 @@ function Home() {
   const [address, setAddress] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [profile, setProfile] = useState<any>(null)
-  const [error, setError] = useState('')
+  const [error, setError] = useState<string>()
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0)
 
   const handleSearch = async () => {
@@ -24,7 +29,7 @@ function Home() {
       return
     }
 
-    setError('')
+    setError(undefined)
     setIsLoading(true)
     setProfile(null)
 
@@ -38,10 +43,13 @@ function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          applicationId,
+        }),
       })
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        throw new Error()
       }
 
       const data = await response.json()
