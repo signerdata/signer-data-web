@@ -2,6 +2,7 @@ import { Box, Button, Card, Stack, Typography } from '@mui/material'
 import { Session } from '@supabase/supabase-js'
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { API_URL } from '../../config/variables'
 import { Application } from '../settings/types'
 import DailyActiveUsersChart from './DailyActiveUsersChart'
 import DailySessionsChart from './DailySessionsChart'
@@ -24,7 +25,7 @@ function Dashboard({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/dashboard/applications`, {
+        const response = await fetch(`${API_URL}/api/v1/dashboard/applications`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -53,7 +54,7 @@ function Dashboard({
         if (!application) {
           return
         }
-        const response = await fetch(`http://localhost:3000/api/v1/dashboard/applications/${application.id}`, {
+        const response = await fetch(`${API_URL}/api/v1/dashboard/applications/${application.id}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,

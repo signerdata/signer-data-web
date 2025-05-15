@@ -8,7 +8,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Settings from './components/settings'
-import { supabase } from './config/supabase'
+import { supabase } from './config/variables'
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)

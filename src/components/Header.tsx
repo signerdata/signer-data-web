@@ -2,7 +2,7 @@ import { AppBar, Box, Button, Stack, Tab, Tabs, Toolbar, Typography } from '@mui
 import { Session } from '@supabase/supabase-js'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Logo from '../assets/logo.png'
-import { supabase } from '../config/supabase'
+import { supabase } from '../config/variables'
 
 function Header({ session }: { session: Session | null }) {
   const navigate = useNavigate()

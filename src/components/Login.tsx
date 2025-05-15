@@ -1,7 +1,7 @@
 import { Box, Button, Card, Link, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { supabase } from '../config/supabase'
+import { supabase } from '../config/variables'
 
 function Login() {
   const navigate = useNavigate()

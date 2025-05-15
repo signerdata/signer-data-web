@@ -1,6 +1,7 @@
 import { Button, Card, Stack, TextField, Typography } from "@mui/material";
 import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { API_URL } from "../../config/variables";
 import { Application } from "./types";
 
 function App({
@@ -15,7 +16,7 @@ function App({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/v1/dashboard/applications`, {
+        const response = await fetch(`${API_URL}/api/v1/dashboard/applications`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${session.access_token}`,
@@ -40,7 +41,7 @@ function App({
     e.preventDefault()
     try {
       setError(undefined)
-      const response = await fetch(`http://localhost:3000/api/v1/dashboard/applications`, {
+      const response = await fetch(`${API_URL}/api/v1/dashboard/applications`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${session.access_token}`,

@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Typography } from '@mui/material'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../config/supabase'
+import { supabase } from '../config/variables'
 
 function AuthCallback() {
   const navigate = useNavigate()

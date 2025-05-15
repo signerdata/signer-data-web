@@ -1,11 +1,7 @@
 import { Box, Button, Card, CircularProgress, Stack, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { isAddress } from 'viem'
-
-const applicationId = import.meta.env.APPLICATION_ID
-if (!applicationId) {
-  throw new Error('Missing application ID')
-}
+import { API_URL, APPLICATION_ID } from '../config/variables'
 
 const LOADING_MESSAGES = [
   'Based data incoming...',
@@ -28,7 +24,6 @@ function Home() {
       setError('Enter a valid address')
       return
     }
-
     setError(undefined)
     setIsLoading(true)
     setProfile(null)
@@ -38,20 +33,18 @@ function Home() {
     }, 5000)
 
     try {
-      const response = await fetch(`http://localhost:3000/api/v1/signers/${address}`, {
+      const response = await fetch(`${API_URL}/api/v1/signers/${address}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          applicationId,
+          applicationId: APPLICATION_ID,
         }),
       })
-
       if (!response.ok) {
         throw new Error()
       }
-
       const data = await response.json()
       setProfile(data)
     } catch (err) {
@@ -73,7 +66,6 @@ function Home() {
             Explore on-chain profiles
           </Typography>
         </Stack>
-
         <Stack direction="row" gap={2}>
           <TextField
             fullWidth
