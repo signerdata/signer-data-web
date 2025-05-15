@@ -14,15 +14,7 @@ import { useMemo } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { ProfileLogin } from './types'
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  TimeScale
-)
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, TimeScale)
 
 const chartOptions = {
   responsive: true,
@@ -55,8 +47,8 @@ const chartOptions = {
       time: {
         unit: 'day' as const,
         displayFormats: {
-          day: 'MMM d'
-        }
+          day: 'MMM d',
+        },
       },
       ticks: {
         maxRotation: 0,
@@ -69,32 +61,31 @@ const chartOptions = {
   },
 }
 
-function DailyActiveUsersChart({
-  data,
-}: {
-  data: ProfileLogin[]
-}) {
+function DailyActiveUsersChart({ data }: { data: ProfileLogin[] }) {
   const chartData = useMemo(() => {
     // Group by date and count distinct addresses
-    const groupedData = data.reduce((acc, login) => {
-      const date = new Date(login.date).toISOString().split('T')[0];
-      if (!acc[date]) {
-        acc[date] = new Set();
-      }
-      acc[date].add(login.address);
-      return acc;
-    }, {} as Record<string, Set<string>>);
+    const groupedData = data.reduce(
+      (acc, login) => {
+        const date = new Date(login.date).toISOString().split('T')[0]
+        if (!acc[date]) {
+          acc[date] = new Set()
+        }
+        acc[date].add(login.address)
+        return acc
+      },
+      {} as Record<string, Set<string>>
+    )
 
     const chartData = {
-      labels: Object.keys(groupedData).map(date => date),
+      labels: Object.keys(groupedData).map((date) => date),
       datasets: [
         {
           label: 'Daily active users',
-          data: Object.keys(groupedData).map(date => groupedData[date].size),
+          data: Object.keys(groupedData).map((date) => groupedData[date].size),
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
           borderColor: 'rgb(255, 99, 132)',
           borderWidth: 1,
-        }
+        },
       ],
     }
     console.log(chartData)
@@ -106,11 +97,20 @@ function DailyActiveUsersChart({
       <Typography variant="h3" sx={{ mb: 3 }}>
         Daily Active Users
       </Typography>
-      <Box sx={{ width: '100%', height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {data.length > 0
-          ? <Bar data={chartData} options={chartOptions} />
-          : <Typography color="text.secondary">No data available</Typography>
-        }
+      <Box
+        sx={{
+          width: '100%',
+          height: 300,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {data.length > 0 ? (
+          <Bar data={chartData} options={chartOptions} />
+        ) : (
+          <Typography color="text.secondary">No data available</Typography>
+        )}
       </Box>
     </Card>
   )

@@ -1,11 +1,7 @@
-import { Card, Stack, Typography } from "@mui/material";
-import { Session } from "@supabase/supabase-js";
+import { Card, Stack, Typography } from '@mui/material'
+import { Session } from '@supabase/supabase-js'
 
-function Profile({
-  session
-}: {
-  session: Session
-}) {
+function Profile({ session }: { session: Session }) {
   return (
     <Card>
       <Stack flexDirection="row" gap={10}>
@@ -34,4 +30,4 @@ function Profile({
   )
 }
 
-export default Profile;
+export default Profile

@@ -5,7 +5,7 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material'
 import { Application } from '../settings/types'
 
@@ -14,7 +14,7 @@ export function Filters({
   onActivityChange,
   currentApplication,
   applications,
-  onApplicationChange
+  onApplicationChange,
 }: {
   activityFilter: string
   onActivityChange: (value: string) => void
@@ -36,12 +36,14 @@ export function Filters({
           Your applications
         </Typography>
         <FormControl fullWidth>
-          <Select 
+          <Select
             value={currentApplication}
             onChange={(event: SelectChangeEvent) => onApplicationChange(event.target.value)}
           >
             {applications.map((application: Application, index: number) => (
-              <MenuItem key={index} value={application.domain}>{application.domain}</MenuItem>
+              <MenuItem key={index} value={application.domain}>
+                {application.domain}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -51,9 +53,7 @@ export function Filters({
       </Typography>
       <Stack gap={2}>
         <Stack gap={1}>
-          <Typography variant="body1">
-            Chain
-          </Typography>
+          <Typography variant="body1">Chain</Typography>
           <Box
             sx={{
               padding: 2,
@@ -63,18 +63,14 @@ export function Filters({
               backgroundColor: 'background.paper',
             }}
           >
-            <Typography variant="body1">
-              BASE
-            </Typography>
+            <Typography variant="body1">BASE</Typography>
           </Box>
         </Stack>
         <FormControl fullWidth>
           <Stack gap={1}>
-            <Typography variant="body1">
-              Users activity
-            </Typography>
-            <Select 
-              value={activityFilter} 
+            <Typography variant="body1">Users activity</Typography>
+            <Select
+              value={activityFilter}
               onChange={(event: SelectChangeEvent) => onActivityChange(event.target.value)}
             >
               <MenuItem value="all">All</MenuItem>

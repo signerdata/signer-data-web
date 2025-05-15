@@ -1,52 +1,54 @@
-import { Box, Card, Stack, Typography } from '@mui/material';
-import { useMemo } from 'react';
-import { ProfileLogin } from './types';
+import { Box, Card, Stack, Typography } from '@mui/material'
+import { useMemo } from 'react'
+import { ProfileLogin } from './types'
 
-function StatsCards({
-  data
-}: {
-  data: ProfileLogin[]
-}) {
+function StatsCards({ data }: { data: ProfileLogin[] }) {
   const { totalUsers, averageUsers, maxUsers } = useMemo(() => {
     // Group by date and count distinct addresses
-    const groupedData = data.reduce((acc, login) => {
-      const date = new Date(login.date).toISOString().split('T')[0];
-      if (!acc[date]) {
-        acc[date] = new Set();
-      }
-      acc[date].add(login.address);
-      return acc;
-    }, {} as Record<string, Set<string>>);
-    
-    let totalUsers = 0;
-    let averageUsers = 0;
-    let maxUsers = 0;
+    const groupedData = data.reduce(
+      (acc, login) => {
+        const date = new Date(login.date).toISOString().split('T')[0]
+        if (!acc[date]) {
+          acc[date] = new Set()
+        }
+        acc[date].add(login.address)
+        return acc
+      },
+      {} as Record<string, Set<string>>
+    )
+
+    let totalUsers = 0
+    let averageUsers = 0
+    let maxUsers = 0
     if (data.length > 0) {
-      totalUsers = new Set(data.map(login => login.address)).size;
-      averageUsers = Number((data.length / 30).toFixed(2));
-      maxUsers = Math.max(...Object.values(groupedData).map((set) => set.size));
+      totalUsers = new Set(data.map((login) => login.address)).size
+      averageUsers = Number((data.length / 30).toFixed(2))
+      maxUsers = Math.max(...Object.values(groupedData).map((set) => set.size))
     }
     return { totalUsers, averageUsers, maxUsers }
   }, [data])
 
   const { totalSessions, averageSessions, maxSessions } = useMemo(() => {
     // Group by date and calculate max sessions per date
-    const groupedData = data.reduce((acc, login) => {
-      const date = new Date(login.date).toISOString().split('T')[0];
-      if (!acc[date]) {
-        acc[date] = 0;
-      }
-      acc[date] += login.count;
-      return acc;
-    }, {} as Record<string, number>);
-    
-    let totalSessions = 0;
-    let averageSessions = 0;
-    let maxSessions = 0;
+    const groupedData = data.reduce(
+      (acc, login) => {
+        const date = new Date(login.date).toISOString().split('T')[0]
+        if (!acc[date]) {
+          acc[date] = 0
+        }
+        acc[date] += login.count
+        return acc
+      },
+      {} as Record<string, number>
+    )
+
+    let totalSessions = 0
+    let averageSessions = 0
+    let maxSessions = 0
     if (data.length > 0) {
-      totalSessions = data.reduce((acc, login) => acc + login.count, 0);
-      averageSessions = Number((totalSessions / 30).toFixed(2));
-      maxSessions = Math.max(...Object.values(groupedData));
+      totalSessions = data.reduce((acc, login) => acc + login.count, 0)
+      averageSessions = Number((totalSessions / 30).toFixed(2))
+      maxSessions = Math.max(...Object.values(groupedData))
     }
     return { totalSessions, averageSessions, maxSessions }
   }, [data])
@@ -111,4 +113,4 @@ function StatsCards({
   )
 }
 
-export default StatsCards;
+export default StatsCards

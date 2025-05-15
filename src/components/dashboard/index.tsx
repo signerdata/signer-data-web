@@ -10,11 +10,7 @@ import { Filters } from './Filters'
 import StatsCards from './StatsCards'
 import { ProfileLogin } from './types'
 
-function Dashboard({
-  session
-}: {
-  session: Session
-}) {
+function Dashboard({ session }: { session: Session }) {
   const navigate = useNavigate()
 
   const [data, setData] = useState<ProfileLogin[]>([])
@@ -28,68 +24,69 @@ function Dashboard({
         const response = await fetch(`${API_URL}/api/v1/dashboard/applications`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${session.access_token}`,
+            Authorization: `Bearer ${session.access_token}`,
             'Content-Type': 'application/json',
           },
-        });
+        })
         console.log(response)
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error('Failed to fetch data')
         }
-        const result = await response.json();
-        setApplications(result);
+        const result = await response.json()
+        setApplications(result)
         setCurrentApplication(result[0].domain)
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setApplications([]);
+        console.error('Error fetching data:', error)
+        setApplications([])
       }
-    };
-    fetchData();
+    }
+    fetchData()
   }, [session])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const application = applications.find(app => app.domain === currentApplication) || applications[0]
+        const application =
+          applications.find((app) => app.domain === currentApplication) || applications[0]
         if (!application) {
           return
         }
         const response = await fetch(`${API_URL}/api/v1/dashboard/applications/${application.id}`, {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${session.access_token}`,
+            Authorization: `Bearer ${session.access_token}`,
             'Content-Type': 'application/json',
           },
-        });
+        })
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error('Failed to fetch data')
         }
-        const result = await response.json();
-        setData(result);
+        const result = await response.json()
+        setData(result)
       } catch (error) {
-        console.error('Error fetching data:', error);
-        setData([]);
+        console.error('Error fetching data:', error)
+        setData([])
       }
-    };
-    fetchData();
-  }, [applications, currentApplication]);
+    }
+    fetchData()
+  }, [applications, currentApplication])
 
   const filteredData = useMemo(() => {
     switch (activityFilter) {
       case 'all':
-        return data;
+        return data
       case 'any':
-        return data.filter(login => login.profile.transactions.out.countAll > 0);
+        return data.filter((login) => login.profile.transactions.out.countAll > 0)
       case '30d':
-        return data.filter(login => login.profile.transactions.out.count30d > 0);
+        return data.filter((login) => login.profile.transactions.out.count30d > 0)
       case '7d':
-        return data.filter(login => login.profile.transactions.out.count7d > 0);
+        return data.filter((login) => login.profile.transactions.out.count7d > 0)
       case 'none':
-        return data.filter(login => login.profile.transactions.out.countAll === 0);
+        return data.filter((login) => login.profile.transactions.out.countAll === 0)
       default:
-        return data;
+        return data
     }
-  }, [data, activityFilter]);
+  }, [data, activityFilter])
 
   if (applications.length === 0) {
     return (
@@ -113,7 +110,7 @@ function Dashboard({
 
   return (
     <Stack direction="row" width="100%">
-      <Filters 
+      <Filters
         activityFilter={activityFilter}
         onActivityChange={setActivityFilter}
         currentApplication={currentApplication}

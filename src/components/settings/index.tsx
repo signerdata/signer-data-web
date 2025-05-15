@@ -4,11 +4,7 @@ import App from './App'
 import Payments from './Payments'
 import Profile from './Profile'
 
-function Settings({
-  session
-}: {
-  session: Session
-}) {
+function Settings({ session }: { session: Session }) {
   return (
     <Container maxWidth="lg" sx={{ marginTop: 2, marginBottom: 6 }}>
       <Stack gap={2}>
