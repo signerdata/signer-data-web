@@ -6,9 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "unbuild": "rimraf dist",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md}\"",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prod:deploy": "pm2 start 'pnpm start' --name 'signer-data-web'",
+    "prod:undeploy": "pm2 stop 'signer-data-web'"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -34,7 +37,9 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.1.0",
+    "pm2": "^6.0.6",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.32.1",
     "vite": "^6.3.5"
