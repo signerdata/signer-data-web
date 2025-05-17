@@ -17,15 +17,6 @@ function getFrequencyLevel(frequency: number): string {
   return 'Very frequently'
 }
 
-function getVolumeLevel(volume: string): string {
-  const numVolume = parseFloat(volume)
-  if (numVolume === 0) return 'No volume'
-  if (numVolume < 1) return 'Low volume'
-  if (numVolume < 10) return 'Medium volume'
-  if (numVolume < 100) return 'High volume'
-  return 'Very high volume'
-}
-
 function getAccountAgeLabel(ageDays: number): string {
   if (ageDays < 7) return 'New account'
   if (ageDays < 30) return 'Recent account'
