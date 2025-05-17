@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Card,
+  Chip,
   CircularProgress,
   Container,
   Stack,
@@ -11,7 +12,8 @@ import {
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { isAddress } from 'viem'
-import { API_URL, APPLICATION_ID } from '../config/variables'
+import { API_URL, APPLICATION_ID } from '../../config/variables'
+import { generateProfileLabels } from './utils'
 
 const LOADING_MESSAGES = [
   'Based data incoming...',
@@ -28,6 +30,7 @@ function Home() {
   const [address, setAddress] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [profile, setProfile] = useState<any>(null)
+  const [tags, setTags] = useState<string[]>([])
   const [error, setError] = useState<string>()
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0)
 
@@ -35,6 +38,7 @@ function Home() {
     setAddress(e.target.value)
     if (e.target.value === '') {
       setProfile(null)
+      setTags([])
       setError(undefined)
     }
   }
@@ -47,7 +51,7 @@ function Home() {
     setError(undefined)
     setIsLoading(true)
     setProfile(null)
-
+    setTags([])
     const messageInterval = setInterval(() => {
       setLoadingMessageIndex((prev) => (prev + 1) % LOADING_MESSAGES.length)
     }, 5000)
@@ -65,8 +69,9 @@ function Home() {
       if (!response.ok) {
         throw new Error()
       }
-      const data = await response.json()
-      setProfile(data)
+      const profile = await response.json()
+      setTags(generateProfileLabels(profile))
+      setProfile(profile)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch profile data')
     } finally {
@@ -122,6 +127,9 @@ function Home() {
                 <Box
                   component="pre"
                   className="scrollable-content"
+                  border={1}
+                  borderColor="divider"
+                  borderRadius={2}
                   sx={{
                     overflow: 'auto',
                     maxHeight: '400px',
@@ -132,6 +140,13 @@ function Home() {
                 >
                   {JSON.stringify(profile, null, 2)}
                 </Box>
+              )}
+              {address && tags.length > 0 && (
+                <Stack flexDirection="row" gap={2} justifyContent="space-between" flexWrap="wrap">
+                  {tags.map((tag) => (
+                    <Chip variant="outlined" color="primary" label={tag} key={tag} sx={{ flex: 1, fontSize: '16px', paddingX: 2, paddingY: 3, borderRadius: 3 }} />
+                  ))}
+                </Stack>
               )}
             </Stack>
           </Card>

@@ -4,7 +4,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 import AuthCallback from './components/AuthCallback'
 import Dashboard from './components/dashboard'
 import Header from './components/Header'
-import Home from './components/Home'
+import Home from './components/home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Settings from './components/settings'

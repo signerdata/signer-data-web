@@ -1,4 +1,4 @@
-type SignerProfile = {
+export type SignerProfile = {
   account: {
     ageDays: number
   }

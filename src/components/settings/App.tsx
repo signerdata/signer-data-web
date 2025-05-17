@@ -107,6 +107,7 @@ function App({ session }: { session: Session }) {
                   pattern: '^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z]{2,}$',
                   title: 'Enter a valid domain (e.g., example.com)',
                 }}
+                autoComplete="off"
                 error={error !== undefined}
                 fullWidth
               />

@@ -53,6 +53,7 @@ function Register() {
               onChange={(e) => setUsername(e.target.value)}
               required
               inputProps={{ minLength: 5, maxLength: 20 }}
+              autoComplete="off"
             />
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -78,6 +79,7 @@ function Register() {
               onChange={(e) => setPassword(e.target.value)}
               required
               inputProps={{ minLength: 6 }}
+              autoComplete="off"
             />
           </Box>
           <Button type="submit" variant="contained" size="large">
