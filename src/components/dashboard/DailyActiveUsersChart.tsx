@@ -50,6 +50,9 @@ const chartOptions = {
           day: 'MMM d',
         },
       },
+      min: new Date(Date.now() - 29 * 24 * 60 * 60 * 1000).toISOString(),
+      max: new Date().toISOString(),
+      stacked: true,
       ticks: {
         maxRotation: 0,
         minRotation: 0,
